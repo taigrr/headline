@@ -499,6 +499,7 @@ headline-precmd() {
   for key val in "${(@kv)HL_CONTENT_SOURCE}"; do
     content_lengths[$key]=0
     (( $COLUMNS < ${HL_COLS_REMOVAL[$key]:-0} )) && continue # omit segment
+    (( ! $HL_LAYOUT_ORDER[(Ie)$key] )) && continue # omit segment not in layout
     contents[$key]=$(eval ${=val})
     local -i length=$(headline-prompt-len ${contents[$key]:-''} 999)
     (( content_length += $length )); content_lengths[$key]=$length
