@@ -128,7 +128,7 @@ declare -A HL_CONTENT_TEMPLATE=(
 declare -A HL_CONTENT_SOURCE=(
   USER   'echo $USER'
   HOST   'hostname -s'
-  VENV   'basename "$VIRTUAL_ENV"'
+  VENV   'print ${VIRTUAL_ENV_PROMPT:-${CONDA_DEFAULT_ENV:-$(basename "$VIRTUAL_ENV")}}'
   PATH   'print -rP "%~"'
   BRANCH 'headline-git-branch'
   STATUS 'headline-git-status'
