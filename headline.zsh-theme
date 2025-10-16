@@ -84,7 +84,7 @@ HL_LAYOUT_STYLE="%{$faint%}"
 
 # Order of segments
 declare -a HL_LAYOUT_ORDER=(
-  _PRE USER HOST VENV PATH _SPACER BRANCH STATUS _POST # ...
+  _PRE USER HOST PATH _SPACER BRANCH STATUS _POST # ...
 )
 
 # Template for each segment's layout
@@ -92,7 +92,6 @@ declare -A HL_LAYOUT_TEMPLATE=(
   _PRE    "${IS_SSH+=> }" # shows "=> " if this is an ssh session
   USER    '...'
   HOST    ' @ ...'
-  VENV    ' (...)'
   PATH    ': ...'
   _SPACER ' | ' # special, only shows when compact, otherwise fill with space
   BRANCH  '...'
@@ -103,7 +102,6 @@ declare -A HL_LAYOUT_TEMPLATE=(
 
 # Template for first segment's layout (when prior segments removed)
 declare -A HL_LAYOUT_FIRST=(
-  VENV    '(...)'
   PATH    '...'
   _SPACER ''
   # ...
@@ -117,7 +115,6 @@ HL_SPACE_CHAR=' '
 declare -A HL_CONTENT_TEMPLATE=(
   USER   "%{$bold$red%}..." # consider ' ' or ' '
   HOST   "%{$bold$yellow%}..." # consider '󰇅 ' or ' '
-  VENV   "%{$bold$green%}..." # consider ' ' or ' '
   PATH   "%{$bold$blue%}..." # consider ' ' or ' '
   BRANCH "%{$bold$cyan%}..." # consider ' ' or ' '
   STATUS "%{$bold$magenta%}..."
@@ -128,7 +125,6 @@ declare -A HL_CONTENT_TEMPLATE=(
 declare -A HL_CONTENT_SOURCE=(
   USER   'echo $USER'
   HOST   'hostname -s'
-  VENV   'print ${VIRTUAL_ENV_PROMPT:-${CONDA_DEFAULT_ENV:-$(basename "$VIRTUAL_ENV")}}'
   PATH   'print -rP "%~"'
   BRANCH 'headline-git-branch'
   STATUS 'headline-git-status'
@@ -165,13 +161,12 @@ declare -A HL_GIT_STATUS_SYMBOLS=(
 declare -A HL_COLS_REMOVAL=(
   USER   50
   HOST   70
-  VENV   30
   # ...
 )
 
 # Order to truncate & remove segments
 declare -a HL_TRUNC_ORDER=(
-  HOST USER VENV PATH BRANCH # ...
+  HOST USER PATH BRANCH # ...
 )
 
 # Symbol to insert when truncating a segment
@@ -192,7 +187,7 @@ HL_RPROMPT=''
 
 
 # Show the clock, or don't show
-HL_CLOCK_MODE='off' # on|off
+HL_CLOCK_MODE='on' # on|off
 
 # Template for the clock
 HL_CLOCK_TEMPLATE="%{$faint%}..."
